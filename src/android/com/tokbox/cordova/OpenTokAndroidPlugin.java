@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.util.DisplayMetrics;
+
 import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
@@ -33,6 +35,7 @@ import com.opentok.android.Stream;
 import com.opentok.android.Stream.StreamVideoType;
 import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
+
 
 
 public class OpenTokAndroidPlugin extends CordovaPlugin implements 
@@ -114,8 +117,11 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
               ratioIndex = 9;
           }
 
-          widthRatio = (float) mProperty.getDouble(ratioIndex);
-          heightRatio = (float) mProperty.getDouble(ratioIndex + 1);
+          DisplayMetrics metrics = new DisplayMetrics();
+          cordova.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+          widthRatio = (float) mProperty.getDouble(ratioIndex) * metrics.density;
+          heightRatio = (float) mProperty.getDouble(ratioIndex + 1) * metrics.density;
 
           mView.setY( mProperty.getInt(1) * heightRatio );
           mView.setX( mProperty.getInt(2) * widthRatio );
