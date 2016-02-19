@@ -254,6 +254,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
     public Subscriber mSubscriber;
     public Stream mStream;
 
+
     public RunnableSubscriber( JSONArray args, Stream stream ){
       this.mProperty = args;
       mStream = stream;
@@ -276,7 +277,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         mSubscriber = new Subscriber(cordova.getActivity(), mStream);
         mSubscriber.setVideoListener(this);
         mSubscriber.setSubscriberListener(this);
-        mSubscriber.setPreferredResolution(new VideoUtils.size(240, 240));
+        this.setPreferredResolution(new VideoUtils.size(240, 240));
         ViewGroup frame = (ViewGroup) cordova.getActivity().findViewById(android.R.id.content);
         this.mView = mSubscriber.getView();
         frame.addView( this.mView );
